@@ -1,0 +1,63 @@
+# model sets
+num_class: 11
+model:
+    encoder:
+        input_channel: 1
+        input_ker_size: 3
+        input_ker_padding: 1
+        num_stage: 3
+        stage_channels: [64, 128, 256]
+        stage_ker_size: [3, 3, 3]
+        stage_ker_padding: [1, 1, 1]
+        stage_stide: [1, 2, 2]
+    repairnet:
+        num_class: 11
+        channels: [64, 128]
+        base_block: ['RCU','IRU']
+        is_dsc: True
+    ssdecoder:
+        channels: 256
+        num_class: 11
+        base_block: ['RCU', 'IRU']
+        is_dsc: True
+# data sets
+data:
+    train:
+        img_path: "imgs"
+        label_path: 'labels'
+        img_size: 512
+        imgSty: '.jpg'
+        labSty: '.png'
+        is_train: True
+        is_augment: False
+        flip_rate: 0.5
+        gause_rate: 0.5
+        salt_rate: 0.5
+    eval:
+        img_path: "imgs"
+        label_path: 'labels'
+        img_size: 512
+        imgSty: '.jpg'
+        labSty: '.png'
+        is_train: True
+        is_augment: False
+        flip_rate: 0.5
+        gause_rate: 0.5
+        salt_rate: 0.5
+loss_type: 'BB_CE'
+loss_weight: [0.3,0.3,0.4]
+train_cfg:
+    max_epochs: 50
+    batch_size: 1
+    optimizer: 'SGD'
+    learning_rate: 0.01
+    step_size: 20
+    gamma: 0.8
+with_gpu: True
+print_freq: 2
+root: '/data'
+work_dir: '/mnt/cephfs_new_wj/vc/yuankun/data_result'
+resume:
+    is_resume: False
+    resume_dir: None
+
