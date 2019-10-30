@@ -39,8 +39,8 @@ class SSDecoder(nn.Module):
                 padding=1,
                 bias=False,
                 is_dsc=False,
-                with_bn=False,
-                activation=None,
+                with_bn=True,
+                activation='relu',
                 stride=1
             )
         )
