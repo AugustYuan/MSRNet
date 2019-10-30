@@ -48,4 +48,4 @@ class IRU(nn.Module):
         x1 = self.conv1(x)
         x2 = self.conv2(x1)
         x3 = self.conv3(nn.ReLU()(x+x2))
-        return nn.ReLU()(x+x1+x3)
+        return nn.ReLU()(x1+x3)

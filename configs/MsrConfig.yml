@@ -47,14 +47,14 @@ data:
 loss_type: 'BB_CE'
 loss_weight: [0.3,0.3,0.4]
 train_cfg:
-    max_epochs: 50
-    batch_size: 1
+    max_epochs: 8000
+    batch_size: 8
     optimizer: 'SGD'
-    learning_rate: 0.01
-    step_size: 20
-    gamma: 0.8
+    learning_rate: 0.1
+    step_size: 2000
+    gamma: 0.6
 with_gpu: True
-print_freq: 2
+print_freq: 11
 root: '/data'
 work_dir: '/mnt/cephfs_new_wj/vc/yuankun/data_result'
 resume:

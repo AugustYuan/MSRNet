@@ -21,11 +21,11 @@ def iou_cuda(pre, lable, num_class):
     pre = pre[mask]
     lable = lable[mask]
     hist = ((lable*num_class+pre).long()).bincount(minlength=num_class**2)
-    hist = hist.view(num_class, num_class)
+    hist = hist.view(num_class, num_class).float()
     ious = hist.diag()/(torch.sum(hist, 0)+torch.sum(hist, 1)-hist.diag())
     mask = ious<=1.0
     miou = torch.mean(ious[mask])
-    accs = hist.diag()/torch.sum(hist, 1)
+    accs = torch.sum(hist.diag())/torch.sum(hist)
     mask = accs<1.0
     accs = torch.mean(accs[mask])
     return miou*100.0, accs*100.0

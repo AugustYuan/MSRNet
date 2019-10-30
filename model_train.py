@@ -1,4 +1,5 @@
 import os
+import cv2
 import time
 import torch
 import logging
@@ -180,6 +181,10 @@ class Model(nn.Module):
                         if iteration % self.print_freq == 0 and self.rank == 0:
                             _, logit = torch.max(output['model_output'][-1], 1)
                             label = data_batch[1][-1]
+                            pic = logit[0].cpu().data
+                            cv2.imwrite('/mnt/cephfs_new_wj/vc/yuankun/pics/{}_{}.png'.format(epoch, iteration), np.uint8(pic)*20)
+                            pic = logit[0].cpu().data
+                            cv2.imwrite('/mnt/cephfs_new_wj/vc/yuankun/pics/{}_{}3.png'.format(epoch, iteration), np.uint8(pic)*20)
                             miou, acc = self._iou(logit, label)
                             logging.info(
                                 'Epoch: [{}] [{}/{}], Lr: {:.5f}, Time: {:.2f}, Loss: {:.4f}, mIOU: {:.2f}, Acc: {:.2f}'.format(
@@ -189,8 +194,8 @@ class Model(nn.Module):
 
                     except Exception as e:
                         print(str(e) + '\n' + traceback.format_exc())
-            if self.rank == 0:
-                self._save_checkpoint(epoch, iteration)
+            #if self.rank == 0:
+                #self._save_checkpoint(epoch, iteration)
 
     def _build_loss(self):
         loss_type = {

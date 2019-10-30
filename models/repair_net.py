@@ -62,11 +62,25 @@ class Repairnet(nn.Module):
             'out_conv',
             Conv_2D(
                 in_channels=self.in_channels,
-                out_channels=self.num_class,
-                kernel_size=1,
-                padding=0,
+                out_channels=self.in_channels,
+                kernel_size=3,
+                padding=1,
                 bias=False,
-                is_dsc=self.is_dsc,
+                is_dsc=False,
+                with_bn=False,
+                activation=None,
+                stride=1
+            )
+        )
+        conv.add_module(
+            'out_conv',
+            Conv_2D(
+                in_channels=self.in_channels,
+                out_channels=self.num_class,
+                kernel_size=3,
+                padding=1,
+                bias=False,
+                is_dsc=False,
                 with_bn=False,
                 activation=None,
                 stride=1
